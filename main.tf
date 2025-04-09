@@ -2,6 +2,7 @@
 #include<string>
 using namespace std;
 int wn;
+int counter=0;
 int tempchoice;
 struct workOuts
 {
@@ -19,9 +20,9 @@ struct Client
     string progresslogs[100];
 };
 workOuts w[100];
+Client p;
 void client()
 {
-    Client p;
     int choice;
     //int ch2;
     cout << "1 : Show Workout plan." << endl;
@@ -30,7 +31,8 @@ void client()
     cin >> choice;
     switch (choice)
     {
-        case 1: for (int i = 0;i <wn;i++)
+        case 1:cout << "--------------------------------------------------------------------"<<endl;
+        for (int i = 0;i <counter;i++)
         {
         cout << "The Workout name is : " << w[i].name << endl;
         cout << "The Workout ID is : " << w[i].ID << endl;
@@ -43,18 +45,33 @@ void client()
         }
           break;
           
-        case 2 : for (int i = 0;i < wn;i++)
+        case 2 : cout << "--------------------------------------------------------------------"<<endl;
+        for (int i = 0;i < counter;i++)
         {
             cout << "Workout #" << i + 1 << " : " << w[i].name << endl;
+            for (int j = 0;j < w[i].exnum;j++)
+            {
+            cout << "Exercise #" << j + 1 << " : " << w[i].exercise[j] << endl;
+            }
+            cout << endl;
         }
                
                cout << "How Many exercises you finshed? : ";
                cin >> tempchoice;
                cin.ignore();
-               for (int i = 0;i < tempchoice;i++)
-               {
+              int i =0;
+                while (i < tempchoice)
+                {
+                    cout << "Exercise #"<<i+1<<": ";
+                if (p.progresslogs[i].empty())
+                {
                    getline(cin, p.progresslogs[i]);
-               }
+                   i++;
+                }
+                else i++;
+                }
+                
+               
       
     
 
@@ -70,6 +87,10 @@ void WorkOuts()
     cin.ignore();
     for (int i = 0;i < wn;i++)
     {
+        if(w[i].name.size()!= 0 )
+        {
+        i++;
+        }
         cout << "Workout #" << i + 1 << endl;
         cout << "Enter The Workout name : ";
         getline(cin, w[i].name);
@@ -87,20 +108,23 @@ void WorkOuts()
         cin >> w[i].duration;
         cin.ignore();
         cout << endl << endl;
+        counter++;
+        
+        
+    
 
     }
 }
 void trainer()
 {
     int choice;
-    Client p;
     cout << "1 : Show Clients Informations." << endl;
     cout << "2 : Create Client's Workouts." << endl;
     cout << "3 : Show Progression Sheets of Clients." << endl;
     cin >> choice;
     switch (choice)
     {
-      case 1:
+      case 1: break;
 
       case 2:  WorkOuts();
         break;
