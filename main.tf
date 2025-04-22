@@ -1,9 +1,8 @@
 #include <iostream>
 #include<string>
 using namespace std;
-int wn;
-int counter=0;
-int tempchoice;
+
+//structers
 struct workOuts
 {
     int ID;
@@ -23,8 +22,112 @@ struct Client
     float hight;
     int age; 
 };
+
+//Functions declerations
+void SignUp();
+void LogIn();
+void WorkOuts();
+void client();
+void trainer();
+
+
+//defeniations 
 workOuts w[100];
 Client p;
+int wn;
+int counter=0;
+int tempchoice;
+string t_username;
+string t_password;
+
+
+
+//Main Functions
+int main()
+{
+    
+    while (true)
+    {
+        cout << "-----------------------------Fitness system------------------------------"<<endl;
+        cout << "1 : Sign Up " << endl;
+        cout << "2 : Log In " << endl;
+        cout << "Enter choice : ";
+        int q;
+        cin >> q;
+        cout << "-------------------------------------------------------------------------"<<endl;    
+        switch (q)
+        {
+        case 1: SignUp();
+            break;
+        case 2:LogIn();
+            break;
+        }
+        char r;
+        cout << "Do You Want To Exit in the Program? (y/n) : ";
+        cin >> r;
+        if (r == 'n')
+            continue;
+
+        else if (r == 'y')
+        break;
+        
+
+    }
+}
+void SignUp()
+{
+    int choice;
+    cout <<"You Want to sign up as \n 1.Trainer \n 2.client"<< endl; 
+    cout << "Enter choice : ";
+    cin >> choice;
+    switch (choice)
+    {
+    case 1 : cout << "Enter your UserName : ";
+    cin >> t_username;
+    cout << "Enter your Password : ";
+    cin >> t_password;
+    cout << "Signed up successfully!"<<endl;
+    cout << "--------------------------------------------------------------------"<<endl;
+    break;
+    case 2 : cout << "Enter your UserName : ";
+    cin >> p.username;
+    cout << "Enter your Password : ";
+    cin >> p.password;
+    cout << "Signed up successfully!"<<endl;
+    cout << "--------------------------------------------------------------------"<<endl;
+    break;
+}
+}
+void LogIn()
+{
+    string input_username , input_password;
+    cout << "Enter your UserName : ";
+    cin >> input_username;
+    cout << "Enter your Password : ";
+    cin >> input_password;
+    if(input_username == t_username)
+    {
+    if(input_password == t_password)
+    {
+        cout << "Loged in successfully !"<<endl; 
+        cout << "--------------------------------------------------------------------"<<endl;
+        trainer();
+    }
+    else cout << "paswword is not correct."<<endl;
+    return; 
+    }
+    if (input_username == p.username)
+    {
+    if(input_password == p.password)
+    {
+        cout << "Loged in successfully !"<<endl; 
+        cout << "--------------------------------------------------------------------"<<endl;
+        client();
+    }
+    else cout << "paswword is not correct."<<endl;
+    return; 
+    }
+}
 void WorkOuts()
 {
     
@@ -60,10 +163,14 @@ void WorkOuts()
 void client()
 {
     int choice;
+    while(choice != 4)
     //int ch2;
+    {
     cout << "1 : Show Workout plan." << endl;
     cout << "2 : Recored Completed Workouts." << endl;
     cout << "3 : Enter Your information." << endl;
+    cout << "4 : Log out." << endl;
+
     cout<< "Enter choice : ";
     cin >> choice;
     cout << "--------------------------------------------------------------------"<<endl;
@@ -98,7 +205,7 @@ void client()
         cout << "--------------------------------------------------------------------"<<endl;
         break;
 
-        case 2 : cout << "--------------------------------------------------------------------"<<endl;
+        case 2 : 
         for (int i = 0;i < counter;i++)
         {
             cout << "Workout #" << i + 1 << " : " << w[i].name << endl;
@@ -126,14 +233,18 @@ void client()
            cout << "--------------------------------------------------------------------"<<endl;
         break;
     }
-
+} 
 }
 void trainer()
 {
     int choice;
+    while( choice !=4)
+    {
     cout << "1 : Show Clients Informations." << endl;
     cout << "2 : Show Progression Sheets of Clients." << endl;
     cout << "3 : Create Client's Workouts." << endl;
+    cout << "4 : Log Out." << endl;
+
    ;
     cin >> choice;
     switch (choice)
@@ -148,7 +259,7 @@ void trainer()
       break;
 
       case 2: cout << "--------------------------------------------------------------------"<<endl;
-    for (int i = 0;i < tempchoice;i++)
+      for (int i = 0;i < tempchoice;i++)
       {
         cout << "Exercis #" << i + 1 << ':' << p.progresslogs[i] << endl;
       }
@@ -158,34 +269,5 @@ void trainer()
     case 3:  WorkOuts();
     break;
     }
-}
-int main()
-{
-    while (true)
-    {
-        cout << "-----------------------------Fitness system------------------------------"<<endl;
-        cout << "1 : Client " << endl;
-        cout << "2 : Trainer " << endl;
-        cout << "Enter choice : ";
-        int q;
-        cin >> q;
-        cout << "-------------------------------------------------------------------------"<<endl;    
-        switch (q)
-        {
-        case 1: client();
-            break;
-        case 2:trainer();
-            break;
-        }
-        char r;
-        cout << "Do You Want To Record another workout? (y/n) : ";
-        cin >> r;
-        if (r == 'y')
-            continue;
-
-        else break;
     }
- 
-    
 }
-    
